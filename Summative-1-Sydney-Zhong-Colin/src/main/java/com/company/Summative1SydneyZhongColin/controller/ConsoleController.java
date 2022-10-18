@@ -2,6 +2,7 @@ package com.company.Summative1SydneyZhongColin.controller;
 
 import com.company.Summative1SydneyZhongColin.model.Console;
 import com.company.Summative1SydneyZhongColin.repository.ConsoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @RequestMapping(value = "/console")
 public class ConsoleController {
 
+    @Autowired
     ConsoleRepository consoleRepository;
 
     // create

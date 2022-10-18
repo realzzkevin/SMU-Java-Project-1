@@ -27,9 +27,10 @@ public class Console {
 
     }
 
-    public Console(Integer id, String manufacturer) {
-        this.id = id;
+    public Console(String model, String manufacturer, Double price) {
+        this.model = model;
         this.manufacturer = manufacturer;
+        this.price = price;
     }
 
     public Integer getId() {
