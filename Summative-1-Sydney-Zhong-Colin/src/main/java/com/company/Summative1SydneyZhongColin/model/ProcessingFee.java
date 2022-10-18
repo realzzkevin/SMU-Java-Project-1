@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
@@ -13,7 +14,7 @@ import java.util.Objects;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "processing_fee")
 public class ProcessingFee {
-
+    @Id
     @NotEmpty(message = "Product type must not be null or empty")
     @Column(name = "product_type")
     private String productType;

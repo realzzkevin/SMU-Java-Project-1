@@ -2,13 +2,16 @@
 //
 //import com.company.Summative1SydneyZhongColin.model.SalesTax;
 //import com.company.Summative1SydneyZhongColin.repository.SaleTaxRepository;
+//import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.SpringApplication;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.data.jpa.repository.JpaRepository;
 //
 //
 //import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.List;
-//
 //
 //public class Seeder {
 //    @Autowired
@@ -27,48 +30,8 @@
 //            new SalesTax("AL", .05),
 //            new SalesTax("AL", .05),
 //            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
-//            new SalesTax("AL", .05),
 //            new SalesTax("AL", .05)
+//
 //
 //    ));
 //

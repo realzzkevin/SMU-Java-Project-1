@@ -60,7 +60,11 @@
 			<version>4.0.0</version>
 			<scope>test</scope>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
