@@ -3,34 +3,48 @@ package com.company.Summative1SydneyZhongColin.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "t-shirt")
+@Table(name = "t_shirt")
 public class T_Shirt {
 
     @Id
-    @Column(name = "t-shirt_id")
+    @Column(name = "t_shirt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    //@NotNull
+    private Integer id;
 
+    @NotNull
     private String color;
+    @NotNull
     private String size;
-    private String brand;
+    @NotNull
+    private String description;
+    @NotNull
+    private double price;
+    @NotNull
+    private Integer quantity;
 
-    public T_Shirt(int id, String color, String size, String brand) {
+    public T_Shirt() {
+    }
+
+    public T_Shirt(Integer id, String color, String size, String description, double price, Integer quantity) {
         this.id = id;
         this.color = color;
         this.size = size;
-        this.brand = brand;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,12 +64,28 @@ public class T_Shirt {
         this.size = size;
     }
 
-    public String getBrand() {
-        return brand;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBrand(String brand) {
-        this.brand = brand;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Override
@@ -63,12 +93,12 @@ public class T_Shirt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         T_Shirt t_shirt = (T_Shirt) o;
-        return id == t_shirt.id && Objects.equals(color, t_shirt.color) && Objects.equals(size, t_shirt.size) && Objects.equals(brand, t_shirt.brand);
+        return Double.compare(t_shirt.price, price) == 0 && Objects.equals(id, t_shirt.id) && Objects.equals(color, t_shirt.color) && Objects.equals(size, t_shirt.size) && Objects.equals(description, t_shirt.description) && Objects.equals(quantity, t_shirt.quantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, color, size, brand);
+        return Objects.hash(id, color, size, description, price, quantity);
     }
 
     @Override
@@ -77,7 +107,9 @@ public class T_Shirt {
                 "id=" + id +
                 ", color='" + color + '\'' +
                 ", size='" + size + '\'' +
-                ", brand='" + brand + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
                 '}';
     }
 }
