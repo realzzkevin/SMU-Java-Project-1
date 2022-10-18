@@ -4,6 +4,9 @@ package com.company.Summative1SydneyZhongColin.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -15,13 +18,18 @@ public class Console {
     @Column(name = "console_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @NotEmpty(message = "Model field may not be empty")
     private String model;
+    @NotEmpty(message = "Manufacturer field may not be empty")
     private String manufacturer;
     @Column(name = "memory_amount")
     private String memoryAmount;
     private String processor;
+    @NotNull(message = "Price must be set")
+    @Digits(integer = 5, fraction = 2)
     private Double price;
-    private Integer quantity;
+    @NotNull(message = "Quantity must be set")
+    private int quantity;
 
     public Console() {
 
@@ -81,11 +89,11 @@ public class Console {
         this.price = price;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
