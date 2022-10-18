@@ -1,10 +1,10 @@
 package com.company.Summative1SydneyZhongColin.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.http.HttpStatus;
+        import com.fasterxml.jackson.annotation.JsonFormat;
+        import org.springframework.http.HttpStatus;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
+        import java.time.LocalDateTime;
+        import java.util.Objects;
 
 public class CustomErrorResponse {
 
@@ -80,4 +80,6 @@ public class CustomErrorResponse {
                 ", timestamp=" + timestamp +
                 '}';
     }
+}
+{
 }
