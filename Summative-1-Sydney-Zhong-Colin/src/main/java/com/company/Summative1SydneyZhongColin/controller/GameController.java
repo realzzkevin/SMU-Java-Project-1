@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/games")
+@RequestMapping("/game")
 public class GameController {
     @Autowired
     GameRepository repo;
@@ -33,38 +33,38 @@ public class GameController {
             return null;
         }
     }
-
+    //crate game
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Game addGame(@RequestBody @Valid Game game) {
         return repo.save(game);
     }
-
+    //update game
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame (@RequestBody Game game) {
         repo.save(game);
     }
-
+    //Delete game by Id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame (@PathVariable int id) {
         repo.deleteById(id);
     }
-
+    // find game by Studio
     @RequestMapping(value = "/studio/{studio}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<Game> getGamesByStudio(@PathVariable String Studio){
-        return repo.findByStudio(Studio);
+    public List<Game> getGamesByStudio(@PathVariable String studio){
+        return repo.findByStudio(studio);
     }
 
-
+    //find game by esrb rating
     @RequestMapping(value = "/esrb/{esrb}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByEsrb(@PathVariable String esrb){
-        return repo.findByEsrbrating(esrb);
+        return repo.findByESRBRating(esrb);
     }
-
+    //find game by title
     @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByTitle(@PathVariable String title) {
