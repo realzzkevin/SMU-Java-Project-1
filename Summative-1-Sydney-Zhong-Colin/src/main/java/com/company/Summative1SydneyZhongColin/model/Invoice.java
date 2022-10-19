@@ -55,11 +55,9 @@ public class Invoice {
     @Digits(integer = 5, fraction = 2)
     private Double subtotal;
 
-    @NotNull
     @Digits(integer = 5, fraction = 2)
     private Double tax;
 
-    @NotNull
     @Column(name = "processing_fee")
     @Digits(integer = 5, fraction = 2)
     private Double processingFee;
