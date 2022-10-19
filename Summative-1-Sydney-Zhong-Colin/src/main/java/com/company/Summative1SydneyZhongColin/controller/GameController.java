@@ -5,6 +5,7 @@ import com.company.Summative1SydneyZhongColin.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,7 +26,7 @@ public class GameController {
     //findByID
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Game getGameById(@PathVariable int id) {
+    public Game getGameById(@PathVariable int id) throws RuntimeException {
         Optional<Game> returnVal = repo.findById(id);
         if(returnVal.isPresent()) {
             return returnVal.get();
@@ -42,8 +43,12 @@ public class GameController {
     //update game
     @RequestMapping(method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGame (@RequestBody Game game) {
-        repo.save(game);
+    public void updateGame (@RequestBody @Valid Game game) {
+        if(game.getId() != null) {
+            repo.save(game);
+        } else {
+            throw new IllegalArgumentException("Game Id not present");
+        }
     }
     //Delete game by Id
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

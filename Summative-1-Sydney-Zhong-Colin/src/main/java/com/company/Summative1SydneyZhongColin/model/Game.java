@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -19,16 +20,20 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotEmpty(message = "Game must have a title")
+    @Size(max = 50, message = "Game title should be under 50 characters")
     private String title;
     @NotEmpty(message = "Please provide the studio for this game")
+    @Size(max = 50, message = "Game title should be under 50 characters")
     private String studio;
     @NotEmpty(message = "Please provide the ESRB rating for this game")
+    @Size(max = 50, message = "Studio name should be under 50 characters")
     @Column(name = "esrb_rating")
     private String ESRBRating;
     @NotEmpty(message = "Please provide a short description ")
+    @Size(max = 50, message = "Description should be under 255 characters")
     private String description;
     @NotNull(message = "Please set a price for this game")
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 3, fraction = 2, message = "Price can not be more than 999.99")
     private Double price;
     @NotNull(message = "please set the quantity for this game")
     private Integer quantity;
