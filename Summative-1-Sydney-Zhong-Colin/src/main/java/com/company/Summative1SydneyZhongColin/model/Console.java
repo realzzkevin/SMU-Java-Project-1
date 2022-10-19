@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -19,14 +20,18 @@ public class Console {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotEmpty(message = "Model field may not be empty")
+    @Size(max = 50, message = "Model name should be under 50 characters")
     private String model;
     @NotEmpty(message = "Manufacturer field may not be empty")
+    @Size(max = 50, message = "Manufacturer name should be under 50 characters")
     private String manufacturer;
     @Column(name = "memory_amount")
+    @Size(max = 20, message = "Memory amount should be under 20 characters")
     private String memoryAmount;
+    @Size(max = 20, message = "Processor should be under 20 characters")
     private String processor;
     @NotNull(message = "Price must be set")
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 3, fraction = 2, message = "Price must have 3 integers and 2 fraction places")
     private Double price;
     @NotNull(message = "Quantity must be set")
     private int quantity;
