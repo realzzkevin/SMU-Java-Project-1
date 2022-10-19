@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -126,9 +127,12 @@ public class GameControllerTest {
 
     @Test
     public void shouldReturn204StatusCodeUpdateGame() throws Exception{
+        Game savedEldenRing = eldenRing;
+        savedEldenRing.setId(12);
+        String savedJson = mapper.writeValueAsString(savedEldenRing);
         mockMvc.perform(
                 put("/game")
-                        .content(eldenJson)
+                        .content(savedJson)
                         .contentType(MediaType.APPLICATION_JSON)
         )
                 .andDo(print())
@@ -158,7 +162,6 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(gameByStudioJson));
     }
-
 
     @Test
     public void getGamesByEsrb() throws Exception {
@@ -190,4 +193,107 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(gamesByTitleJson));
     }
+
+    //UpdateGame will return 422 error if RequestBody doesn't have id
+    @Test
+    public void shouldReturn422StatusCodeByUpdateGameWithoutID() throws Exception{
+        Game inputGameNoId =  new Game("Elden Ring",
+                "FromSoftWare",
+                "Mature",
+                "The new fantasy action RPG",
+                59.99,
+                1000);
+
+        String inputJson = mapper.writeValueAsString(inputGameNoId);
+
+        mockMvc.perform(
+                put("/game")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+    //Controller will return 422 code, if required properties are missing
+    @Test
+    public void shouldReturn422StatusCreateOrUpdateGameWithMissingProperties() throws Exception {
+        Game inputGame = eldenRing;
+        inputGame.setTitle(null);
+
+        String inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                post("/game")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        inputGame.setId(20);
+
+        inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                        put("/game")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+    }
+
+    @Test
+    public void shouldReturn422StatusWhenPropertiesExceedLimit() throws Exception {
+        Game inputGame = eldenRing;
+        inputGame.setPrice(1000.00);
+
+        String inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                        post("/game")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        inputGame.setId(20);
+
+        inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                        put("/game")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturn422StatusWhenPropertiesAreNotNumber() throws Exception {
+        String inputJson = "{title\":\"dark souls 3\",\"studio\":\"FromSoftWare\",\"description\":\"The new fantasy action RPG\",\"price\":\"this is a string\",\"quantity\":\"this is a string too\",\"esrbrating\":\"Mature\"}";
+
+        mockMvc.perform(
+                        post("/game")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        String inputJson2 = "{\"id\":15,title\":\"dark souls 3\",\"studio\":\"FromSoftWare\",\"description\":\"The new fantasy action RPG\",\"price\":\"this is a string\",\"quantity\":\"this is a string too\",\"esrbrating\":\"Mature\"}";
+
+        mockMvc.perform(
+                        put("/game")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+    }
+
 }
