@@ -24,13 +24,24 @@ public class T_ShirtRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        t_shirtRepository.deleteAll(); //TODO:why is this needed?
+        t_shirtRepository.deleteAll();
         t_shirt = new T_Shirt();
         t_shirt.setColor("Blue");
         t_shirt.setSize("Medium");
         t_shirt.setDescription("A medium blue t-shirt.");
         t_shirt.setPrice(20.00);
         t_shirt.setQuantity(10);
+    }
+
+    @Test
+    public void addGetDeleteTShirt() {
+        t_shirt = t_shirtRepository.save(t_shirt);
+        Optional<T_Shirt> t_shirt1 = t_shirtRepository.findById(t_shirt.getId());
+        assertEquals(t_shirt1.get(), t_shirt);
+
+        t_shirtRepository.deleteById(t_shirt.getId());
+        t_shirt1 = t_shirtRepository.findById(t_shirt.getId());
+        assertFalse(t_shirt1.isPresent());
     }
 
     @Test

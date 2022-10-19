@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,19 +21,19 @@ public class T_ShirtController {
     //creating a t-shirt POST
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public T_Shirt addTShirt(@RequestBody T_Shirt t_shirt) {
+    public T_Shirt addTShirt(@RequestBody @Valid T_Shirt t_shirt) {
         return repo.save(t_shirt);
     }
 
     //Get T-shirt by ID GET
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public T_Shirt getTShirtById(@PathVariable Integer id) {
+    public T_Shirt getTShirtById(@PathVariable @Valid Integer id) {
         Optional<T_Shirt> returnVal = repo.findById(id);
         if (returnVal.isPresent()) {
             return returnVal.get();
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("T-shirt Id is not present.");
         }
     }
 
@@ -46,8 +47,13 @@ public class T_ShirtController {
     //updating T-shirt PUT
     @PutMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTShirt(@RequestBody T_Shirt t_shirt) {
-        repo.save(t_shirt);
+    public void updateTShirt(@RequestBody @Valid T_Shirt t_shirt) {
+        if (t_shirt.getId() != null) {
+            repo.save(t_shirt);
+        } else {
+            throw new IllegalArgumentException("T-shirt Id is not present.");
+        }
+
     }
 
     //Deleting a T-shirt by ID
