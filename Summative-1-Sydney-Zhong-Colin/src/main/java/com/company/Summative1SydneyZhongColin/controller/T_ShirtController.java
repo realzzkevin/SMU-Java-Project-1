@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/tshirt")
+@RequestMapping(value = "/tshirt")
 public class T_ShirtController {
 
     @Autowired

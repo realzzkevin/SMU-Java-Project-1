@@ -3,6 +3,7 @@ package com.company.Summative1SydneyZhongColin.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
@@ -14,18 +15,17 @@ public class T_Shirt {
     @Id
     @Column(name = "t_shirt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //@NotNull
     private Integer id;
-
-    @NotNull
+    @NotNull(message = "color must not be empty")
     private String color;
-    @NotNull
+    @NotNull(message = "size must not be empty")
     private String size;
-    @NotNull
+    @NotNull(message = "description must not be empty")
     private String description;
-    @NotNull
+    @NotNull(message = "price must be set")
+    @Digits(integer = 5, fraction = 2)
     private double price;
-    @NotNull
+    @NotNull(message = "quantity must be set")
     private Integer quantity;
 
     public T_Shirt() {
