@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -109,8 +110,11 @@ public class ConsoleControllerTest {
 
     @Test
     public void shouldRespondWith204WhenDeletingConsole() throws Exception {
-        mockMvc.perform(delete("/console/1"))
+        int deleteConsoleID = 1;
+        mockMvc.perform(delete("/console/1", deleteConsoleID))
                 .andExpect(status().isNoContent());
+
+        verify(consoleRepository).deleteById(deleteConsoleID);
     }
 
     @Test
@@ -120,5 +124,58 @@ public class ConsoleControllerTest {
         mockMvc.perform(get("/console/manufacturer/Sony"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
+    }
+
+    @Test
+    public void shouldRespondWith422WhenTryingUpdateWithoutID() throws Exception {
+        inputPS5.setModel("PS5");
+
+        String inputJson = mapper.writeValueAsString(inputPS5);
+
+        mockMvc.perform(put("/console")
+                .content(inputJson)
+                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldRespondWith422WhenCreateWithMissingProperties() throws Exception {
+        inputPS5.setManufacturer(null);
+
+        String inputJson = mapper.writeValueAsString(inputPS5);
+
+        mockMvc.perform(post("/console")
+                .content(inputJson)
+                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldRespondWith422WhenUpdateWithMissingProperties() throws Exception {
+        inputPS5.setModel(null);
+        inputPS5.setId(4);
+
+        String inputJson = mapper.writeValueAsString(inputPS5);
+
+        mockMvc.perform(put("/console")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturn422WhenPriceIsTooLarge() throws Exception {
+        inputPS5.setPrice(1000.00);
+
+        String inputJson = mapper.writeValueAsString(inputPS5);
+
+        mockMvc.perform(post("/console")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isUnprocessableEntity());
     }
 }
