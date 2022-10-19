@@ -245,6 +245,22 @@ public class GameControllerTest {
     }
 
     @Test
+    public void shouldReturn422statusWhenPropertiesExceedLimitedLength() throws Exception {
+        Game inputGame = eldenRing;
+        inputGame.setStudio("FromSoftWareFromSoftWareFromSoftWareFromSoftWareFromSoftWare");
+
+        String inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                post("/game")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     public void shouldReturn422StatusWhenPropertiesExceedLimit() throws Exception {
         Game inputGame = eldenRing;
         inputGame.setPrice(1000.00);

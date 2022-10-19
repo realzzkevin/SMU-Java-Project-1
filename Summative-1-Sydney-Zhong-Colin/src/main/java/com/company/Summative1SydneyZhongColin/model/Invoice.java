@@ -19,9 +19,11 @@ public class Invoice {
     private Integer id;
 
     @NotEmpty
+    @Size(max = 80, message = "Name must under 50 characters.")
     private String name;
 
     @NotEmpty
+    @Size(max = 50, message = "Name must under 50 characters.")
     private String street;
 
     @NotEmpty
