@@ -99,4 +99,17 @@ public class ControllerExceptionHandler {
         ResponseEntity<CustomErrorResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
         return responseEntity;
     }
+
+    @ExceptionHandler(value = NullPointerException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<CustomErrorResponse> NullPointerException(NullPointerException e) {
+        HttpStatus status4XX = HttpStatus.NOT_FOUND;
+        CustomErrorResponse error = new CustomErrorResponse(status4XX.toString(), e.getMessage());
+        error.setStatus(status4XX.value());
+        error.setTimestamp(LocalDateTime.now());
+        ResponseEntity<CustomErrorResponse> responseEntity = new ResponseEntity<>(error, status4XX);
+        return responseEntity;
+    }
+
+
 }

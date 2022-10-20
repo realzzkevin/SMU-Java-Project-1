@@ -3,7 +3,9 @@ package com.company.Summative1SydneyZhongColin.service;
 import com.company.Summative1SydneyZhongColin.model.*;
 import com.company.Summative1SydneyZhongColin.repository.*;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -100,7 +102,6 @@ public class ServiceLayerTest {
         List<Game> gameList = new ArrayList<>();
         gameList.add(eldenRingSaved);
 
-//        allGamesJson = mapper.writeValueAsString(allGames);
         doReturn(eldenRingSaved).when(gameRepository).save(eldenRing);
         doReturn(Optional.of(eldenRingSaved)).when(gameRepository).findById(1);
         doReturn(gameList).when(gameRepository).findAll();
@@ -152,6 +153,7 @@ public class ServiceLayerTest {
         outputInvoice.setId(1);
 
         doReturn(outputInvoice).when(invoiceRepository).save(invoice1);
+        doReturn(Optional.of(outputInvoice)).when(invoiceRepository).findById(1);
 
 
     }
@@ -216,6 +218,25 @@ public class ServiceLayerTest {
 
     @Test
     public void shouldFindInvoiceById() {
+        Invoice expectedOutput = new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                1,
+                5);
+        expectedOutput.setUnitPrice(59.99);
+        expectedOutput.setTax(18.00);
+        expectedOutput.setProcessingFee(1.49);
+        expectedOutput.setSubtotal(299.95);
+        expectedOutput.setTotal(319.44);
+        expectedOutput.setId(1);
+
+        Invoice actualOutput = serviceLayer.findInvoiceById(1);
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
@@ -224,5 +245,38 @@ public class ServiceLayerTest {
 
     @Test
     public void shouldFindInvoicesByCustomerName() {
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldReturn422IfItemIdNoFound() {
+        Invoice inputInvoice = new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                123,
+                5);
+        System.out.println(inputInvoice);
+
+        Invoice actualOutput = serviceLayer.saveInvoice(inputInvoice);
+        System.out.println("No Exceptions, Unexpected. ");
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldReturn422IfItemIdIsMissing() {
+        Invoice inputInvoice = new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                123,
+                5);
+        inputInvoice.setItemId(null);
+        Invoice actualOutput = serviceLayer.saveInvoice(inputInvoice);
+        System.out.println("No Exception, Unexpected. ");
     }
 }
