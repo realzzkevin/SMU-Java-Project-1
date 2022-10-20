@@ -49,7 +49,7 @@ public class ServiceLayerTest {
     }
     @Test
     public void doSomething() {
-        System.out.println("I don't know why this is here");
+        System.out.println("I still don't know why it here");
 
     }
     public void setUpConsoleRepositoryMock() {
@@ -128,9 +128,10 @@ public class ServiceLayerTest {
                 "Games",
                 1,
                 5);
-        invoice1.setTax(0.06);
-        invoice1.setProcessingFee(1.49);
+        invoice1.setUnitPrice(59.99);
         invoice1.setSubtotal(299.95);
+        invoice1.setTax(18.00);
+        invoice1.setProcessingFee(1.49);
         invoice1.setTotal(319.44);
 
         Invoice outputInvoice = new Invoice(
@@ -142,9 +143,10 @@ public class ServiceLayerTest {
                 "Games",
                 1,
                 5);
-        outputInvoice.setTax(0.06);
-        outputInvoice.setProcessingFee(1.49);
+        outputInvoice.setUnitPrice(59.99);
         outputInvoice.setSubtotal(299.95);
+        outputInvoice.setTax(18.00);
+        outputInvoice.setProcessingFee(1.49);
         outputInvoice.setTotal(319.44);
 
         outputInvoice.setId(1);
@@ -196,11 +198,13 @@ public class ServiceLayerTest {
                 "Games",
                 1,
                 5);
-        outputInvoice.setId(1);
-        outputInvoice.setTax(0.06);
+        outputInvoice.setUnitPrice(59.99);
+        outputInvoice.setTax(18.00);
         outputInvoice.setProcessingFee(1.49);
         outputInvoice.setSubtotal(299.95);
         outputInvoice.setTotal(319.44);
+
+        outputInvoice.setId(1);
 
        Invoice savedInvoice = serviceLayer.saveInvoice(invoice1);
         System.out.println(savedInvoice);
