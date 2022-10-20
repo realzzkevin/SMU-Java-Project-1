@@ -159,6 +159,9 @@ public class ServiceLayerTest {
         doReturn(Optional.of(outputInvoice)).when(invoiceRepository).findById(1);
         List<Invoice> kevenInvoices = new ArrayList<>(Arrays.asList(outputInvoice));
 
+        List<Invoice> invoiceList = new ArrayList<>();
+        invoiceList.add(invoice1);
+        doReturn(invoiceList).when(invoiceRepository).findAll();
 
         doReturn(outputInvoice).when(invoiceRepository).save(invoice1);
         doReturn(kevenInvoices).when(invoiceRepository).findByName("Kevin");
@@ -248,7 +251,42 @@ public class ServiceLayerTest {
 
     @Test
     public void shouldFindAllInvoices() {
+        List<Invoice> invoiceList = serviceLayer.findAllInvoices();
+        assertEquals(1, invoiceList.size());
     }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldReturnErrorCode422WhenStateIsMissing() {
+        Invoice invoice2 = new Invoice(
+                "Colin",
+                "123 Spring St",
+                "New York City",
+                null,
+                "10010",
+                "Consoles",
+                1,
+                1);
+
+        Invoice actualOutput = serviceLayer.saveInvoice(invoice2);
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void shouldReturnErrorCode422WhenStateIsDC() {
+        Invoice invoice3 = new Invoice(
+                "Colin",
+                "123 Spring St",
+                "New York City",
+                "DC",
+                "10010",
+                "Consoles",
+                1,
+                1);
+
+        Invoice actualOutput = serviceLayer.saveInvoice(invoice3);
+
+    }
+
 
     @Test
     public void shouldFindInvoicesByCustomerName() {
