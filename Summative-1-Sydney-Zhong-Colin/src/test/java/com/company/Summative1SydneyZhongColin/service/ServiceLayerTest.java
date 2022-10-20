@@ -8,7 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -151,8 +153,10 @@ public class ServiceLayerTest {
 
         outputInvoice.setId(1);
 
-        doReturn(outputInvoice).when(invoiceRepository).save(invoice1);
+        List<Invoice> kevenInvoices = new ArrayList<>(Arrays.asList(outputInvoice));
 
+        doReturn(outputInvoice).when(invoiceRepository).save(invoice1);
+        doReturn(kevenInvoices).when(invoiceRepository).findByName("Kevin");
 
     }
     public void setUpProcessingFeeRepository() {
@@ -224,5 +228,23 @@ public class ServiceLayerTest {
 
     @Test
     public void shouldFindInvoicesByCustomerName() {
+        List<Invoice> invoiceList = serviceLayer.findInvoicesByCustomerName("Kevin");
+
+        assertEquals(1, invoiceList.size());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldReturn422IfInvoiceTotalTooHigh() {
+        Invoice invoice1 = new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                1,
+                50);
+
+        Invoice testInvoice = serviceLayer.saveInvoice(invoice1);
     }
 }
