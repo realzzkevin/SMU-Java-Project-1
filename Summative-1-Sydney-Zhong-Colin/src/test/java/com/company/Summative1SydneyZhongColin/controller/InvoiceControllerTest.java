@@ -167,7 +167,6 @@ public class InvoiceControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(invoiceListJson));
 
-
     }
 
     @Test
@@ -196,7 +195,7 @@ public class InvoiceControllerTest {
                 "Games",
                 18,
                 5);
-        inputInvoice.setItemType("");
+        inputInvoice.setItemType(null);
         String inputInvoicJson = mapper.writeValueAsString(inputInvoice);
         mockMvc.perform(
                 post("/invoice")
@@ -206,5 +205,50 @@ public class InvoiceControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
 
+
+    }
+
+    @Test
+    public void shouldReturn422StatusWhenItemIdOrQuantityAreNotNumbers() throws Exception {
+        String inputInvoiceJson =
+                "    {\n" +
+                        "        \"name\": \"kevinZ\",\n" +
+                        "        \"street\": \"1000 main St\",\n" +
+                        "        \"city\": \"Philadelphia\",\n" +
+                        "        \"state\": \"PA\",\n" +
+                        "        \"zipcode\": \"19102\",\n" +
+                        "        \"itemType\": \"Games\",\n" +
+                        "        \"itemId\" : \"item id is a string\",\n" +
+                        "        \"quantity\": 1\n" +
+                        "\n" +
+                        "    }";
+
+        mockMvc.perform(
+                post("/invoice")
+                        .contentType(inputInvoiceJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        String inputInvoiceJson2 =
+                "    {\n" +
+                "        \"name\": \"kevinZ\",\n" +
+                "        \"street\": \"1000 main St\",\n" +
+                "        \"city\": \"Philadelphia\",\n" +
+                "        \"state\": \"PA\",\n" +
+                "        \"zipcode\": \"19102\",\n" +
+                "        \"itemType\": \"Games\",\n" +
+                "        \"itemId\" : 15,\n" +
+                "        \"quantity\": \"quantity is a string\"\n" +
+                "\n" +
+                "    }";
+        mockMvc.perform(
+                        post("/invoice")
+                                .contentType(inputInvoiceJson2)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 }

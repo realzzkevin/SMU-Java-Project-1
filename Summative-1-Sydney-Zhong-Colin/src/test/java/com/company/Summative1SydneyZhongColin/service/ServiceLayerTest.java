@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.webjars.NotFoundException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
@@ -327,7 +328,23 @@ public class ServiceLayerTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void shouldReturn422IfItemIdIsMissing() {
+    public void shouldReturn404CodeIfItemIdIsMissing() {
+        Invoice inputInvoice = new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                1,
+                5);
+        inputInvoice.setItemId(null);
+        Invoice actualOutput = serviceLayer.saveInvoice(inputInvoice);
+        System.out.println("No Exception, Unexpected. ");
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void shouldReturn422CodeIfUnitePriceNotFound() {
         Invoice inputInvoice = new Invoice(
                 "Kevin",
                 "1000 Main st",
@@ -337,8 +354,8 @@ public class ServiceLayerTest {
                 "Games",
                 123,
                 5);
-        inputInvoice.setItemId(null);
         Invoice actualOutput = serviceLayer.saveInvoice(inputInvoice);
         System.out.println("No Exception, Unexpected. ");
+
     }
 }
