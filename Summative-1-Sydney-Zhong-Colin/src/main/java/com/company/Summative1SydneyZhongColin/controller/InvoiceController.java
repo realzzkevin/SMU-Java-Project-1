@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,7 +20,7 @@ public class InvoiceController {
     // create
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody Invoice invoice) {
+    public Invoice createInvoice(@RequestBody @Valid Invoice invoice) {
         return serviceLayer.saveInvoice(invoice);
     }
 

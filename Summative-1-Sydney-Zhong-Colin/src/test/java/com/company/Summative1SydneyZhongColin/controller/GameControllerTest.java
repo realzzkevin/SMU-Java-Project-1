@@ -115,7 +115,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void shouldReturnOKForNonExistentRsvpId() throws Exception {
+    public void shouldReturnOKForNonExistentGameId() throws Exception {
         doReturn(Optional.empty()).when(repo).findById(12345);
 
         mockMvc.perform(
@@ -242,6 +242,22 @@ public class GameControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
 
+    }
+
+    @Test
+    public void shouldReturn422statusWhenPropertiesExceedLimitedLength() throws Exception {
+        Game inputGame = eldenRing;
+        inputGame.setStudio("FromSoftWareFromSoftWareFromSoftWareFromSoftWareFromSoftWare");
+
+        String inputJson = mapper.writeValueAsString(inputGame);
+
+        mockMvc.perform(
+                post("/game")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

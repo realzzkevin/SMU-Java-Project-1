@@ -42,17 +42,21 @@ public class ServiceLayer {
             throw new IllegalArgumentException("Quantity must be a positive number");
         }
 
+        invoice.setUnitPrice( getUnitPrice(invoice.getItemType(), invoice.getItemId()));
+
         Double subtotal = invoice.getUnitPrice() * invoice.getQuantity();
-        Double tax = saleTaxRepository.findByState(invoice.getState()).getRate();
+        Double tax = saleTaxRepository.findByState(invoice.getState()).getRate() * subtotal;
+        System.out.println(tax);
         Double processingFee = processingFeeRepository.findByProductType(invoice.getItemType()).getFee();
 
         if (invoice.getQuantity() > 10) {
             processingFee += 15.49;
         }
 
-        Double total = subtotal + processingFee + (subtotal * tax);
+        Double total = subtotal + processingFee + tax;
 
         // limit to 2 decimal points by rounding up
+        tax = new BigDecimal(tax).setScale(2, RoundingMode.HALF_UP).doubleValue();
         subtotal = new BigDecimal(subtotal).setScale(2, RoundingMode.HALF_UP).doubleValue();
         total = new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
@@ -115,6 +119,36 @@ public class ServiceLayer {
         }
 
         return invoiceRepository.save(invoice);
+    }
+
+    public Double getUnitPrice (String itemType, int id) {
+        switch (itemType) {
+            case "Consoles":
+                Optional<Console> console = consoleRepository.findById(id);
+                if(console.isPresent()){
+                    return console.get().getPrice();
+                } else {
+                    throw new NotFoundException("Console not found.");
+                }
+            case "Games":
+                Optional<Game> game = gameRepository.findById(id);
+                if (game.isPresent()) {
+                    Game tempGame = game.get();
+                    return game.get().getPrice();
+                } else {
+                    throw new NotFoundException("game not found");
+                }
+            case "T-shirts":
+                Optional<T_Shirt> tshirt = tShirtRepository.findById(id);
+                if (tshirt.isPresent()) {
+                    return tshirt.get().getPrice();
+                } else {
+                    throw new NotFoundException("t-shirt not found");
+                }
+            default:
+                throw new NotFoundException("invalid item type");
+        }
+
     }
 
     public Invoice findInvoiceById(Integer id) {
