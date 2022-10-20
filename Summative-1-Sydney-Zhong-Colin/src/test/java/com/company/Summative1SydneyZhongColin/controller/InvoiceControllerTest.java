@@ -185,6 +185,26 @@ public class InvoiceControllerTest {
                 .andExpect(content().json(invoiceListJson));
     }
 
-//    @Test
-//    public void shouldReturn422Sta
+    @Test
+    public void shouldReturn422StatusCreateInvoiceWithoutRequiredProperties() throws Exception {
+        Invoice inputInvoice =  new Invoice(
+                "Kevin",
+                "1000 Main st",
+                "Philadelphia",
+                "PA",
+                "19102",
+                "Games",
+                18,
+                5);
+        inputInvoice.setItemType("");
+        String inputInvoicJson = mapper.writeValueAsString(inputInvoice);
+        mockMvc.perform(
+                post("/invoice")
+                        .content(inputInvoicJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+    }
 }
