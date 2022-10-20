@@ -58,7 +58,6 @@ public class InvoiceControllerTest {
                 "19102",
                 "Games",
                 18,
-                59.99,
                 5);
 
         invoice1Json = mapper.writeValueAsString(invoice1);
@@ -71,9 +70,9 @@ public class InvoiceControllerTest {
                 "19102",
                 "Games",
                 18,
-                59.99,
                 5);
         invoice1Out.setId(3);
+        invoice1Out.setUnitPrice(59.99);
         invoice1Out.setTax(0.06);
         invoice1Out.setProcessingFee(1.49);
         invoice1Out.setSubtotal(179.97);
@@ -133,7 +132,6 @@ public class InvoiceControllerTest {
                 "19102",
                 "Games",
                 18,
-                59.99,
                 15);
         invoice2Out.setId(5);
         invoice2Out.setTax(0.06);
@@ -150,7 +148,6 @@ public class InvoiceControllerTest {
                 "19102",
                 "Games",
                 18,
-                59.99,
                 10);
         invoice3Out.setId(6);
         invoice3Out.setTax(0.06);

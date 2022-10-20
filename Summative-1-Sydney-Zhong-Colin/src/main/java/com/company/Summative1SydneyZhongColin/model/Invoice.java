@@ -48,7 +48,7 @@ public class Invoice {
     @Column(name = "item_id")
     private Integer itemId;
 
-    @NotNull(message = "Unit price cannot be empty")
+//    @NotNull(message = "Unit price cannot be empty")
     @Column(name = "unit_price")
     @Digits(integer = 3, fraction = 2, message = "unit price cannot be more than 999.99")
     private Double unitPrice;
@@ -82,7 +82,6 @@ public class Invoice {
                    String zipcode,
                    String itemType,
                    Integer itemId,
-                   Double unitPrice,
                    Integer quantity) {
         this.name = name;
         this.street = street;
@@ -91,7 +90,6 @@ public class Invoice {
         this.zipcode = zipcode;
         this.itemType = itemType;
         this.itemId = itemId;
-        this.unitPrice = unitPrice;
         this.quantity = quantity;
     }
 
