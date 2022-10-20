@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -16,14 +18,18 @@ public class T_Shirt {
     @Column(name = "t_shirt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @NotNull(message = "color must not be empty")
+
+    @Size(max = 20, message = "you cannot have a color name that has more than 20 characters.")
+    @NotEmpty(message = "color must not be empty")
     private String color;
-    @NotNull(message = "size must not be empty")
+    @Size(max = 20)
+    @NotEmpty(message = "size must not be empty")
     private String size;
-    @NotNull(message = "description must not be empty")
+    @Size(max = 255)
+    @NotEmpty(message = "description must not be empty")
     private String description;
     @NotNull(message = "price must be set")
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 3, fraction = 2)
     private double price;
     @NotNull(message = "quantity must be set")
     private Integer quantity;
@@ -31,8 +37,7 @@ public class T_Shirt {
     public T_Shirt() {
     }
 
-    public T_Shirt(Integer id, String color, String size, String description, double price, Integer quantity) {
-        this.id = id;
+    public T_Shirt(String color, String size, String description, double price, Integer quantity) {
         this.color = color;
         this.size = size;
         this.description = description;

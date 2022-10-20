@@ -1,5 +1,6 @@
 package com.company.Summative1SydneyZhongColin.controller;
 
+import com.company.Summative1SydneyZhongColin.model.Game;
 import com.company.Summative1SydneyZhongColin.model.T_Shirt;
 import com.company.Summative1SydneyZhongColin.repository.T_ShirtRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,13 +54,13 @@ public class T_ShirtControllerTest {
     @Before
     public void setUp() {
 
-        inputTshirt1 = new T_Shirt(4,"Blue", "Medium", "a blue t-shirt", 20.00, 10);
-        inputTshirt2 = new T_Shirt(5,"Red", "Large", "a red t-shirt", 20.00, 10);
-        inputTshirt3 = new T_Shirt(6,"Green", "Small", "a green t-shirt", 20.00, 10);
+        inputTshirt1 = new T_Shirt("Blue", "Medium", "a blue t-shirt", 20.00, 10);
+        inputTshirt2 = new T_Shirt("Red", "Large", "a red t-shirt", 20.00, 10);
+        inputTshirt3 = new T_Shirt("Green", "Small", "a green t-shirt", 20.00, 10);
 
-        outputTshirt1 = new T_Shirt(4,"Blue", "Medium", "a blue t-shirt", 20.00, 10);
-        outputTshirt2 = new T_Shirt(5,"Red", "Large", "a red t-shirt", 20.00, 10);
-        outputTshirt3 = new T_Shirt(6,"Green", "Small", "a green t-shirt", 20.00, 10);
+        outputTshirt1 = new T_Shirt("Blue", "Medium", "a blue t-shirt", 20.00, 10);
+        outputTshirt2 = new T_Shirt("Red", "Large", "a red t-shirt", 20.00, 10);
+        outputTshirt3 = new T_Shirt("Green", "Small", "a green t-shirt", 20.00, 10);
 
 
         tshirtList = new ArrayList<>(Arrays.asList(
@@ -100,9 +101,9 @@ public class T_ShirtControllerTest {
         String outputJson = mapper.writeValueAsString(outputTshirt1);
 
         mockMvc.perform(post("/tshirt")
-                .content(createJson)
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andDo(print())
                 .andExpect(content().json(outputJson));
     }
@@ -130,9 +131,9 @@ public class T_ShirtControllerTest {
         String createJson = mapper.writeValueAsString(inputTshirt2);
 
         mockMvc.perform(put("/tshirt")
-                .content(createJson)
-                .contentType(MediaType.APPLICATION_JSON)
-        )
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -152,6 +153,30 @@ public class T_ShirtControllerTest {
     }
 
     @Test
+    public void shouldReturnErrorCode422WhenIdIsMissing() throws Exception {
+        T_Shirt inputTShirtNoId = new T_Shirt("Blue", "Medium", "a blue t-shirt", 20.00, 10);
+        String createJson = mapper.writeValueAsString(inputTShirtNoId);
+        mockMvc.perform(put("/tshirt")
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturnErrorCode422WhenColorIsMissing() throws Exception {
+        inputTshirt1.setColor(null);
+        String createJson = mapper.writeValueAsString(inputTshirt1);
+        mockMvc.perform(post("/tshirt")
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     public void shouldReturnAllTShirtsBySize() throws Exception {
         String outputJson = mapper.writeValueAsString(tshirtSizeList);
         mockMvc.perform(get("/tshirt/size/Medium"))
@@ -159,4 +184,55 @@ public class T_ShirtControllerTest {
                 .andExpect(content().json(outputJson));
     }
 
+    @Test
+    public void shouldReturnErrorCode422WhenSizeIsMissing() throws Exception {
+        inputTshirt1.setSize(null);
+        String createJson = mapper.writeValueAsString(inputTshirt1);
+        mockMvc.perform(post("/tshirt")
+                        .content(createJson)
+                        .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturnErrorCode422WhenCreateOrUpdateTShirtWithMissingProperties() throws Exception {
+        T_Shirt inputTShirt = new T_Shirt();
+        inputTShirt.setColor(null);
+
+        String createJson = mapper.writeValueAsString(inputTShirt);
+
+        mockMvc.perform(post("/tshirt")
+                                .content(createJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                                .andDo(print())
+                                .andExpect(status().isUnprocessableEntity());
+
+        inputTShirt.setSize(null);
+        createJson = mapper.writeValueAsString(inputTShirt);
+        mockMvc.perform(put("/tshirt")
+                .content(createJson)
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    public void shouldReturnErrorCode422WhenPriceTooLarge() throws Exception {
+        inputTshirt1.setPrice(1000.00);
+        String createJson = mapper.writeValueAsString(inputTshirt1);
+
+        mockMvc.perform(post("/tshirt")
+                .content(createJson)
+                .contentType(MediaType.APPLICATION_JSON)
+        )
+                .andExpect(status().isUnprocessableEntity());
+    }
 }
+
+
+
+
