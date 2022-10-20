@@ -3,6 +3,7 @@ package com.company.Summative1SydneyZhongColin.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.MessageInterpolator;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -18,54 +19,58 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer id;
 
-    @NotEmpty
-    @Size(max = 80, message = "Name must under 50 characters.")
+    @NotEmpty( message = "Name cannot be empty.")
+    @Size(max = 80, message = "Name must under 80 characters.")
     private String name;
 
-    @NotEmpty
-    @Size(max = 50, message = "Name must under 50 characters.")
+    @NotEmpty(message = "Street cannot be empty.")
+    @Size(max = 30, message = "Name must under 30 characters.")
     private String street;
 
-    @NotEmpty
+    @NotEmpty(message = "City cannot be empty")
+    @Size(max = 30, message = "City must under 30 characters")
     private String city;
 
     @Size(max = 2, min = 2, message = "state should be two letters")
-    @NotEmpty
+    @NotEmpty(message = "State can not be empty.")
     private String state;
 
     @Size(max = 5, min = 5, message = "Zipcode has 5 digits")
-    @NotEmpty
+    @NotEmpty(message = "Zipcode cannot be empty ")
     private String zipcode;
 
-    @NotEmpty
+    @NotEmpty(message = "Item type cannot be empty.")
     @Column(name = "item_type")
+    @Size(max = 20, message = "Item Type must under 20 characters")
     private String itemType;
 
-    @NotNull
+    @NotNull(message = "Item id Cannot be empty")
     @Column(name = "item_id")
     private Integer itemId;
 
-    @NotNull
+    @NotNull(message = "Unit price cannot be empty")
     @Column(name = "unit_price")
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 3, fraction = 2, message = "unit price cannot be more than 999.99")
     private Double unitPrice;
 
-    @NotNull
+    @NotNull(message = "Quantity number cannot be empty")
     private Integer quantity;
 
-    @NotNull
-    @Digits(integer = 5, fraction = 2)
+//    @NotNull(message = "Subtotal cannot be empty")
+    @Digits(integer = 3, fraction = 2, message = "Subtotal cannot be more than 999.99")
     private Double subtotal;
 
-    @Digits(integer = 5, fraction = 2)
+//    @NotNull(message = "Tax cannot be empty.")
+    @Digits(integer = 3, fraction = 2, message = "Tax cannot be more than 999.99")
     private Double tax;
 
+//    @NotNull(message = "Processing fee cannot be empty.")
     @Column(name = "processing_fee")
-    @Digits(integer = 5, fraction = 2)
+    @Digits(integer = 3, fraction = 2, message = "Processing fee cannot be more than 999.99")
     private Double processingFee;
 
-    @NotNull
-    @Digits(integer = 5, fraction = 2)
+//    @NotNull(message = "Total number cannot be empty")
+    @Digits(integer = 3, fraction = 2, message = "Total cannot be more than 999.99")
     private Double total;
 
     public Invoice () {}

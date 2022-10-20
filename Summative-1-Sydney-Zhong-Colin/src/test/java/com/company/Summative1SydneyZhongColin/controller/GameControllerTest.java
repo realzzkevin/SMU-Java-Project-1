@@ -115,7 +115,7 @@ public class GameControllerTest {
     }
 
     @Test
-    public void shouldReturnOKForNonExistentRsvpId() throws Exception {
+    public void shouldReturnOKForNonExistentGameId() throws Exception {
         doReturn(Optional.empty()).when(repo).findById(12345);
 
         mockMvc.perform(
