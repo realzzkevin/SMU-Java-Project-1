@@ -22,14 +22,14 @@ public class T_Shirt {
     @Size(max = 20, message = "you cannot have a color name that has more than 20 characters.")
     @NotEmpty(message = "color must not be empty")
     private String color;
-    @Size(max = 20)
+    @Size(max = 20, message = "you cannot have a size that has more than 20 characters.")
     @NotEmpty(message = "size must not be empty")
     private String size;
-    @Size(max = 255)
+    @Size(max = 255, message= "a description for a t-shirt cannot be more than 255 characters.")
     @NotEmpty(message = "description must not be empty")
     private String description;
     @NotNull(message = "price must be set")
-    @Digits(integer = 3, fraction = 2)
+    @Digits(integer = 3, fraction = 2, message = "price cannot be more than $999.99.")
     private double price;
     @NotNull(message = "quantity must be set")
     private Integer quantity;
