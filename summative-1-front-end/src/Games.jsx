@@ -9,12 +9,6 @@ const Games = () => {
     const [showForm, setShowForm] = useState(false)
     const [ScopeGame, setScopeGame] = useState({})
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/game")
-    //     .then(response => response.json())
-    //     .then(result => setGames(result))
-    //     .catch(err => console.log(err))        
-    // }, [])
     useEffect(() => {
         fetchAll();
     }, [])
@@ -138,13 +132,13 @@ const Games = () => {
                     <option value="ADULTS ONLY 18+">ADULTS ONLY 18+</option>
                 </select>
 
-                <form >
-                    <label htmlFor="search-by-studio">Search By Studio:</label>
-                    <input type="search" id="search-by-studio" name ="search-by-studio" onChange={fetchByStudio}/>
+                <form className='btn btn-outline-secondary' >
+                    <label htmlFor="search-by-studio"  className="btn btn-primary">Search By Studio:</label>
+                    <input type="search" id="search-by-studio"  onChange={fetchByStudio}/>
                 </form>
                 
-                <form>
-                    <label htmlFor="search-by-title">Search By Title :</label>
+                <form className='btn btn-outline-secondary'>
+                    <label htmlFor="search-by-title" className ='btn btn-primary'>Search By Title :</label>
                     <input type="search" id="search-by-title" name ="search-by-title" onChange={fetchByTitle}/>
                 </form>
             </div>
