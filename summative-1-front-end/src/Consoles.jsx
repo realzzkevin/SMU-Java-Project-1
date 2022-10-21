@@ -17,7 +17,7 @@ const Consoles = () => {
   }, [])
 
   const fetchByManufacturer = (event) => {
-    if (event.target.value === "") {
+    if (event.target.value === '') {
       fetch("http://localhost:8080/console")
         .then(response => response.json())
         .then(result => setConsoles(result))
