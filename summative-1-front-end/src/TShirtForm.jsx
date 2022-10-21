@@ -52,6 +52,7 @@ const TShirtForm = ({ tshirt: initialTShirt, notify}) => {
                 <div>
                     <label htmlFor='color'>Color</label>
                     <select name='color' value={tshirt.color} onChange={handleChange} >
+                        <option value=''>Choose a color</option>
                         <option value='Red'>Red</option>
                         <option value='Blue'>Blue</option>
                         <option value='Green'>Green</option>
@@ -72,6 +73,7 @@ const TShirtForm = ({ tshirt: initialTShirt, notify}) => {
                 <div>
                     <label htmlFor='size'>Size</label>
                     <select name='size' value={tshirt.size} onChange={handleChange} >
+                        <option value=''>Choose a size</option>
                         <option value='Extra-Small'>Extra-Small</option>
                         <option value='Small'>Small</option>
                         <option value='Medium'>Medium</option>
