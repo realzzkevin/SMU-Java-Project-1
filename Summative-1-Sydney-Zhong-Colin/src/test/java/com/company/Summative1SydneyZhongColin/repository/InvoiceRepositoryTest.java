@@ -24,7 +24,7 @@ public class InvoiceRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        invoiceRepository.deleteAll();
+//        invoiceRepository.deleteAll();
 
         invoice = new Invoice(
                 "Kevin",

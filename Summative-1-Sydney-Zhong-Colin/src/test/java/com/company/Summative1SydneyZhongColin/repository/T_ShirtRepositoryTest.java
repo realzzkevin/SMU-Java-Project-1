@@ -24,7 +24,7 @@ public class T_ShirtRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        t_shirtRepository.deleteAll();
+//        t_shirtRepository.deleteAll();
         t_shirt = new T_Shirt();
         t_shirt.setColor("Blue");
         t_shirt.setSize("Medium");

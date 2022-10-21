@@ -9,12 +9,6 @@ const Games = () => {
     const [showForm, setShowForm] = useState(false)
     const [ScopeGame, setScopeGame] = useState({})
 
-    // useEffect(() => {
-    //     fetch("http://localhost:8080/game")
-    //     .then(response => response.json())
-    //     .then(result => setGames(result))
-    //     .catch(err => console.log(err))        
-    // }, [])
     useEffect(() => {
         fetchAll();
     }, [])

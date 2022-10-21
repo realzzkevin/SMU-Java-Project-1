@@ -24,7 +24,7 @@ public class ConsoleRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-        consoleRepository.deleteAll();
+//        consoleRepository.deleteAll();
         console = new Console("Playstation 5", "Sony", 499.99);
     }
 
