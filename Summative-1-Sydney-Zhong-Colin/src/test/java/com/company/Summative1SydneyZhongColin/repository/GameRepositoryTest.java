@@ -23,7 +23,7 @@ public class GameRepositoryTest {
 
     @Before
     public void setUp() throws Exception {
-//        gameRepository.deleteAll();
+        gameRepository.deleteAll();
         game =  new Game("Elden Ring",
                 "FromSoftWare",
                 "Mature",
