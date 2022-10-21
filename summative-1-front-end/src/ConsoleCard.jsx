@@ -12,7 +12,7 @@ const ConsoleCard = ({ console, notify }) => {
         <tr key={console.id}>
             <td>{console.model}</td>
             <td>{console.manufacturer}</td>
-            <td>{console.memory_amount}</td>
+            <td>{console.memoryAmount}</td>
             <td>{console.processor}</td>
             <td>{console.price}</td>
             <td>{console.quantity}</td>
