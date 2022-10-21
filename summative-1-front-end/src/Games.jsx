@@ -116,13 +116,14 @@ const Games = () => {
     
 
     return (
-        <div>
-            <div>
-                <button type="button" onClick={addClick}>
+        <div className="container">
+            <h2>Games</h2>
+            <div id="buttonPanel">
+                <button className='btn btn-primary' type="button" onClick={addClick}>
                     Add a Game
                 </button>
 
-                <select name='studio' onChange={fetchByESRB}>
+                <select name='studio' className='btn btn-outline-secondary' onChange={fetchByESRB}>
                     <option value=''>All ESRB</option>
                     <option value='EVERYONE'>EVERYONE</option>
                     <option value='EVERYONE 10+'>EVERYONE 10+</option>
@@ -132,7 +133,7 @@ const Games = () => {
                 </select>
 
                 <form >
-                    <label htmlFor="search-by-studio">Search By studio:</label>
+                    <label htmlFor="search-by-studio">Search By Studio:</label>
                     <input type="search" id="search-by-studio" name ="search-by-studio" onChange={fetchByStudio}/>
                 </form>
                 
@@ -141,19 +142,17 @@ const Games = () => {
                     <input type="search" id="search-by-title" name ="search-by-title" onChange={fetchByTitle}/>
                 </form>
             </div>
-
+            {error && <div className='alert alert-danger'>{error}</div>}
             <div>
-                <h1>
-                    Games
-                </h1>
-                <table>
+                <table id="store-table">
                     <tr>
-                        <th>title</th>
+                        <th>Title</th>
                         <th>Description</th>
                         <th>Studio</th>
                         <th>ESRB</th>
                         <th>Price</th>
                         <th>Quantity</th>
+                        <th>Actions</th>
                     </tr>
                     <tbody>
                     {games.map(game => <GameCard key={game.id} game={game} notify={notify} />)}

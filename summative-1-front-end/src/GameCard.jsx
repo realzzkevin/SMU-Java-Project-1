@@ -16,8 +16,8 @@ const GameCard = ( { game, notify} ) => {
             <td>{game.price}</td>
             <td>{game.quantity}</td>
             <td>
-                    <button onClick={handleDelete}>Delete</button>
-                    <button onClick={() => notify({ action: "edit-form", game: game })}>Edit</button>
+                    <button className='btn btn-danger' onClick={handleDelete}>Delete</button>
+                    <button className='btn btn-secondary' onClick={() => notify({ action: "edit-form", game: game })}>Edit</button>
             </td>
         </tr>
 
