@@ -1,4 +1,5 @@
 import './App.css';
+import TShirts from './TShirt';
 import Consoles from './Consoles';
 import Games from './Games'
 
@@ -10,6 +11,7 @@ function App() {
       <h1>Fake Gamestop</h1>
       <Consoles />
       <Games/>
+      <TShirts />
     </div>
   );
 }
