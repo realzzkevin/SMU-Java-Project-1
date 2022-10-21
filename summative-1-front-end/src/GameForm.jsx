@@ -46,24 +46,24 @@ const GameForm = ({ game: initialGame, notify}) =>{
     }
 
     return(
-        <div>
+        <div id="form-container" className="container">
             <h1>{isAdd ? "Add": "Edit"}Game</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor='title'>title</label>
-                    <input type='text' id='title' name='title' value={game.title} onChange={handleChange} />
+                    <label htmlFor='title'>Title</label>
+                    <input type='text' id='title' name='title' className='form-control' value={game.title} onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor='description'>description</label>
-                    <input type='text' id='description' name='description' value={game.description} onChange={handleChange} />
+                    <label htmlFor='description'>Description</label>
+                    <input type='text' id='description' name='description' className='form-control' value={game.description} onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor='studio'>studio</label>
-                    <input type='text' id='studio' name='studio' value={game.studio} onChange={handleChange} />
+                    <label htmlFor='studio'>Studio</label>
+                    <input type='text' id='studio' name='studio' className='form-control' value={game.studio} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor='esrbrating'>ESRB</label>
-                    <select id="esrbrating" name='esrbrating' value={game.esrbrating} onChange={handleChange}>
+                    <select id="esrbrating" name='esrbrating' className='form-control' value={game.esrbrating} onChange={handleChange}>
                         <option value="">choose a ESRB rating</option>
                         <option value='EVERYONE'>EVERYONE</option>
                         <option value='EVERYONE 10+'>EVERYONE 10+</option>
@@ -74,15 +74,15 @@ const GameForm = ({ game: initialGame, notify}) =>{
                 </div>
                 <div>
                     <label htmlFor='price'>Price</label>
-                    <input type='number' id='price' name='price' value={game.price} onChange={handleChange} />
+                    <input type='number' id='price' name='price' className='form-control' value={game.price} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor='quantity'>Quantity</label>
-                    <input type='number' id='quantity' name='quantity' value={game.quantity} onChange={handleChange} />
+                    <input type='number' id='quantity' name='quantity' className='form-control' value={game.quantity} onChange={handleChange} />
                 </div>
                 <div>
-                    <button type='submit'>Save</button>
-                    <button onClick={() => notify({ action: "cancel" })}>Cancel</button>
+                    <button className='btn btn-primary' type='submit'>Save</button>
+                    <button className='btn btn-secondary' onClick={() => notify({ action: "cancel" })}>Cancel</button>
                 </div>
             </form>
 
