@@ -13,6 +13,7 @@ const ConsoleForm = ({ console: initialConsole, notify }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
+    
 
         const url = `http://localhost:8080/console`
         const method = isAdd ? "POST" : "PUT"
@@ -33,7 +34,7 @@ const ConsoleForm = ({ console: initialConsole, notify }) => {
                     if (isAdd) {
                         return response.json()
                     } else {
-                        return console
+                        return console;
                     }
                 }
                 return Promise.reject(`Didn't receive expected status: ${expectedStatus}`)
@@ -56,14 +57,15 @@ const ConsoleForm = ({ console: initialConsole, notify }) => {
                 <div>
                     <label htmlFor='manufacturer'>Manufacturer</label>
                     <select name='manufacturer' value={console.manufacturer} onChange={handleChange} >
+                        <option value="">Choose a manufacturer</option>
                         <option value='Nintendo'>Nintendo</option>
                         <option value='Sony'>Sony</option>
                         <option value='Microsoft'>Microsoft</option>
                     </select>
                 </div>
                 <div>
-                    <label htmlFor='memory'>Memory Amount</label>
-                    <input type='text' id='memory' name='memory' value={console.memory_amount} onChange={handleChange} />
+                    <label htmlFor='memoryAmount'>Memory Amount</label>
+                    <input type='text' id='memoryAmount' name='memoryAmount' value={console.memoryAmount} onChange={handleChange} />
                 </div>
                 <div>
                     <label htmlFor='processor'>Processor</label>
