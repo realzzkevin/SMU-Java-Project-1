@@ -46,12 +46,12 @@ const TShirtForm = ({ tshirt: initialTShirt, notify}) => {
     }
 
     return (
-        <div>
+        <div id='form-container' className='container'>
             <h1>{isAdd ? "Add" : "Edit"} TShirt</h1>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='color'>Color</label>
-                    <select name='color' value={tshirt.color} onChange={handleChange} >
+                    <select name='color' className='form-control' value={tshirt.color} onChange={handleChange} >
                         <option value=''>Choose a color</option>
                         <option value='Red'>Red</option>
                         <option value='Blue'>Blue</option>
@@ -70,9 +70,9 @@ const TShirtForm = ({ tshirt: initialTShirt, notify}) => {
                     </select>
                     {/* <input type='text' id='color' name='color' value={tshirt.color} onChange={handleChange} /> */}
                 </div>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='size'>Size</label>
-                    <select name='size' value={tshirt.size} onChange={handleChange} >
+                    <select name='size' className='form-control' value={tshirt.size} onChange={handleChange} >
                         <option value=''>Choose a size</option>
                         <option value='Extra-Small'>Extra-Small</option>
                         <option value='Small'>Small</option>
@@ -81,21 +81,21 @@ const TShirtForm = ({ tshirt: initialTShirt, notify}) => {
                         <option value='Extra-Large'>Extra-Large</option>
                     </select>
                 </div>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='description'>Description</label>
-                    <input type='text' id='description' name='description' value={tshirt.description} onChange={handleChange} />
+                    <input type='text' id='description' name='description' className='form-control' value={tshirt.description} onChange={handleChange} />
                 </div>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='price'>Price</label>
-                    <input type='number' id='price' name='price' value={tshirt.price} onChange={handleChange} />
+                    <input type='number' id='price' name='price' className='form-control' value={tshirt.price} onChange={handleChange} />
                 </div>
-                <div>
+                <div className='mb-3'>
                     <label htmlFor='quantity'>Quantity</label>
-                    <input type='number' id='quantity' name='quantity' value={tshirt.quantity} onChange={handleChange} />
+                    <input type='number' id='quantity' className='form-control' name='quantity' value={tshirt.quantity} onChange={handleChange} />
                 </div>
                 <div>
-                    <button type='submit'>Save</button>
-                    <button onClick={() => notify({action: "cancel" })}>Cancel</button>
+                    <button className='btn btn-primary' type='submit'>Save</button>
+                    <button className='btn btn-secondary' onClick={() => notify({action: "cancel" })}>Cancel</button>
                 </div>
             </form>
         </div>

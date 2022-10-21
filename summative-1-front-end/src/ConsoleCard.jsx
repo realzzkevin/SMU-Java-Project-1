@@ -17,8 +17,8 @@ const ConsoleCard = ({ console, notify }) => {
             <td>{console.price}</td>
             <td>{console.quantity}</td>
             <td>
-                <button onClick={handleDelete}>Delete</button>
-                <button onClick={() => notify({ action: "edit-form", console: console })}>Edit</button>
+                <button className='btn btn-danger' onClick={handleDelete}>Delete</button>
+                <button className='btn btn-secondary' onClick={() => notify({ action: "edit-form", console: console })}>Edit</button>
             </td>
         </tr>
     )

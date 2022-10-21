@@ -16,8 +16,8 @@ const TShirtCard = ({ tshirt, notify }) => {
             <td>{tshirt.price}</td>
             <td>{tshirt.quantity}</td>
             <td>
-                <button onClick={handleDelete}>Delete</button>
-                <button onClick={() => notify({ action: "edit-form", tshirt: tshirt })}>Edit</button>
+                <button className='btn btn-danger' onClick={handleDelete}>Delete</button>
+                <button className='btn btn-secondary' onClick={() => notify({ action: "edit-form", tshirt: tshirt })}>Edit</button>
             </td>
         </tr>
     )

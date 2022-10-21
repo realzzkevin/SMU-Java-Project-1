@@ -93,10 +93,11 @@ const TShirts = () => {
 
 
   return (
-    <div>
-        <div>
-        <button type='button' onClick={addClick}>Add a T-Shirt</button>
-        <select name='color' onChange={fetchByColor}>
+    <div className='container'>
+      <h2>T-Shirts</h2>
+      <div id='buttonPanel'>
+        <button className="btn btn-primary" type='button' onClick={addClick}>Add a T-Shirt</button>
+        <select name='color' className='btn btn-outline-secondary' onChange={fetchByColor}>
           <option value=''>Get T-shirts by Color</option>
           <option value='Red'>Red</option>
           <option value='Blue'>Blue</option>
@@ -113,7 +114,7 @@ const TShirts = () => {
           <option value='White'>White</option>
           <option value='Teal'>Teal</option>
         </select>
-        <select name='size' onChange={fetchBySize}>
+        <select name='size' className='btn btn-outline-secondary' onChange={fetchBySize}>
           <option value=''>Get T-shirts by Size</option>
           <option value='Extra-Small'>Extra-Small</option>
           <option value='Small'>Small</option>
@@ -122,15 +123,16 @@ const TShirts = () => {
           <option value='Extra-Large'>Extra-Large</option>
         </select>
       </div>
+      {error && <div className='alert alert-danger'>{error}</div>}
       <div>
-        <h1>T-Shirts</h1>
-        <table>
+        <table id='store-table'>
             <tr>
                 <th>Color</th>
                 <th>Size</th>
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Actions</th>
             </tr>
             <tbody>
                 {tshirts.map(tshirt => <TShirtCard key={tshirt.id} tshirt={tshirt} notify={notify} />)}
