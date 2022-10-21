@@ -77,19 +77,20 @@ const Consoles = () => {
   }
 
   return (
-    <div>
-      <div>
-        <button type='button' onClick={addClick}>Add a Console</button>
-        <select name='manufacturer' onChange={fetchByManufacturer}>
+    <div className='container'>
+      <h2>Consoles</h2>
+      <div id='buttonPanel'>
+        <button className='btn btn-primary' type='button' onClick={addClick}>Add a Console</button>
+        <select name='manufacturer' className='btn btn-outline-secondary' onChange={fetchByManufacturer}>
           <option value=''>Get Consoles by Manufacturer</option>
           <option value='Nintendo'>Nintendo</option>
           <option value='Sony'>Sony</option>
           <option value='Microsoft'>Microsoft</option>
         </select>
       </div>
+      {error && <div className='alert alert-danger'>{error}</div>}
       <div>
-        <h1>Consoles</h1>
-        <table>
+        <table id='store-table'>
           <tr>
             <th>Model</th>
             <th>Manufacturer</th>
